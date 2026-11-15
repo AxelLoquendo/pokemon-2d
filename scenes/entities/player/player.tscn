@@ -1,0 +1,77 @@
+[gd_scene format=3 uid="uid://eoq0q2l3hl1l"]
+
+[ext_resource type="Script" uid="uid://c8dql76gsikly" path="res://scripts/entities/player/Player.cs" id="1_58kc7"]
+[ext_resource type="Texture2D" uid="uid://bhhkkbe3wvg4q" path="res://assets/object_event/player/male/kael/normal.png" id="1_635qg"]
+[ext_resource type="Texture2D" uid="uid://cg0fvuuc136f7" path="res://assets/object_event/shadow/shadow_medium.png" id="2_58kc7"]
+[ext_resource type="Script" uid="uid://b50e8o6yf4pho" path="res://scripts/entities/character/character_movement_controller.cs" id="4_nh4ur"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nh4ur"]
+atlas = ExtResource("1_635qg")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bjvvg"]
+atlas = ExtResource("1_635qg")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8akj5"]
+atlas = ExtResource("1_635qg")
+region = Rect2(32, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bj7e2"]
+atlas = ExtResource("1_635qg")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_htemk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nh4ur")
+}],
+"loop": 1,
+"name": &"idle_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bjvvg")
+}],
+"loop": 1,
+"name": &"idle_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8akj5")
+}],
+"loop": 1,
+"name": &"idle_right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bj7e2")
+}],
+"loop": 1,
+"name": &"idle_up",
+"speed": 5.0
+}]
+
+[node name="Player" type="Node2D" unique_id=545862887 node_paths=PackedStringArray("MovementController")]
+script = ExtResource("1_58kc7")
+MovementController = NodePath("CharacterMovementController")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=1935841442]
+position = Vector2(8, 0)
+sprite_frames = SubResource("SpriteFrames_htemk")
+animation = &"idle_down"
+
+[node name="Shadow" type="Sprite2D" parent="Sprite" unique_id=1039062275]
+modulate = Color(1, 1, 1, 0.28235295)
+z_index = -1
+position = Vector2(-0.5, 11)
+texture = ExtResource("2_58kc7")
+
+[node name="CharacterMovementController" type="Node" parent="." unique_id=1691688092 node_paths=PackedStringArray("TargetNode")]
+script = ExtResource("4_nh4ur")
+TargetNode = NodePath("..")
+WalkSpeed = 3.0
